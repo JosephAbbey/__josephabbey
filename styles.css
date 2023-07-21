@@ -1,0 +1,172 @@
+:root {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color-scheme: dark light;
+  accent-color: black;
+  --bg: black;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    accent-color: rgb(36, 198, 174);
+    --bg: white;
+  }
+}
+
+body {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  container: main / size;
+  position: relative;
+  flex-grow: 1;
+  max-width: 30rem;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2,
+p {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.qrcode {
+  width: calc(70% - 4rem);
+  user-select: none;
+}
+
+input {
+  display: none;
+}
+
+a.button {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+@container main (width < 100vw) {
+  .social {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(50cqw))
+      rotate(calc(360deg - var(--angle)));
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all ease-in-out 200ms;
+    background-color: var(--background-color);
+    background-image: var(--icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+  }
+
+  :not(:checked) + .social * {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  :checked + .social * {
+    transition: all ease-in-out 200ms 20ms;
+  }
+
+  main:has(:checked) > .social {
+    pointer-events: none;
+  }
+
+  :checked + .social {
+    z-index: 100;
+    pointer-events: revert !important;
+    transform: translate(-50%, -50%);
+    cursor: revert;
+    width: min(calc(100vw - 4rem), 18rem);
+    height: min(calc(100vw - 4rem), 18rem);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .social > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .social > div:has(img)::before {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: var(--bg);
+    background-image: var(--icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+  }
+
+  .social > div > img {
+    width: calc(100% - 5rem);
+    border-radius: 1rem;
+  }
+
+  .social > a {
+    display: block;
+    width: calc(100% - 1rem);
+  }
+}
+
+.twitter {
+  --icon: url('/assets/twitter.dark.svg');
+  --icon-light: url('/assets/twitter.svg');
+  --background-color: #1d9cf0;
+  --angle: 324deg;
+}
+
+.github {
+  --icon: url('/assets/github.dark.svg');
+  --icon-light: url('/assets/github.svg');
+  --background-color: #0d1117;
+  --angle: 139deg;
+}
+
+.website {
+  --icon: url('/assets/home.dark.svg');
+  --icon-light: url('/assets/home.svg');
+  --background-color: #373739;
+  --angle: 197deg;
+}
+
+.gitlab {
+  --icon: url('/assets/gitlab.dark.svg');
+  --icon-light: url('/assets/gitlab.svg');
+  --background-color: #e24329;
+  --angle: 229deg;
+}
+
+@media (prefers-color-scheme: light) {
+  .social {
+    --icon: var(--icon-light);
+  }
+}
